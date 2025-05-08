@@ -1,18 +1,42 @@
 package compradehamburguesas;
 
+
 import javax.swing.*;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+
+
 public class ClienteMenu extends JFrame {
     private JTextField txtCedula, txtNombres, txtApellidos, txtTelefono;
     private JComboBox<String> cmbOrden;
     private JButton btnRegistrar, btnVolver;
+    CompraDeHamburguesas test;
+    
+        private void evento_jbLimpiar() {
+        txtTelefono.setText("");
+        txtNombres.setText("");
+        txtApellidos.setText("");
+        txtCedula.setText("");
+        cmbOrden.setSelectedIndex(0);
+    
+//        if(modo == 2){ // modo Consultar y Actualizar  
+//            habilitarCampos(false); // deshabilitar todos los campos del formulario
+//            btnRegistrar.setEnabled(false);
+//        }
+    }
+        private void evento_jbVolver() {
+        setVisible(false);
+        dispose();
+        test.setVisible(true);
+    }
+        
 
-    public ClienteMenu(JFrame padre) {
+    public ClienteMenu(CompraDeHamburguesas ej) {
         super("Gestión de Cliente");
+        test = ej;
         setSize(400, 380);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -26,11 +50,11 @@ public class ClienteMenu extends JFrame {
 
         JLabel lblOrden = new JLabel("Orden:");
         lblOrden.setBounds(50, 80, 100, 25);
-        add(lblOrden);
+        //add(lblOrden);
 
         cmbOrden = new JComboBox<>(new String[]{"1", "2", "3", "4", "5"});
         cmbOrden.setBounds(150, 80, 180, 25);
-        add(cmbOrden);
+        //add(cmbOrden);
 
         JLabel lblCedula = new JLabel("Cédula:");
         lblCedula.setBounds(50, 110, 100, 25);
@@ -74,7 +98,7 @@ public class ClienteMenu extends JFrame {
         btnVolver.setBounds(230, 260, 120, 30);
         btnVolver.addActionListener(e -> {
             dispose();
-            padre.setVisible(true);
+            test.setVisible(true);
         });
         add(btnVolver);
 
@@ -83,19 +107,36 @@ public class ClienteMenu extends JFrame {
 
 private void registrarCliente() {
     ArrayList<String> datos = new ArrayList<>();
-    datos.add((String) cmbOrden.getSelectedItem());  // Orden
+   
+    
     datos.add(txtCedula.getText());                  // Cédula
     datos.add(txtNombres.getText());                 // Nombres
     datos.add(txtApellidos.getText());               // Apellidos
     datos.add(txtTelefono.getText());                // Teléfono
 
-    boolean camposVacios = datos.stream().anyMatch(String::isEmpty);
+    boolean camposVacios = datos.stream().anyMatch(d -> d == null || d.trim().isEmpty());
+
+    if (!txtCedula.getText().matches("\\d+")) {
+        JOptionPane.showMessageDialog(this, "La cédula debe contener solo números.");
+        return;
+    }
+
+    if (!txtTelefono.getText().matches("\\d+")) {
+        JOptionPane.showMessageDialog(this, "El teléfono debe contener solo números.");
+        return;
+    }
 
     if (camposVacios) {
         JOptionPane.showMessageDialog(this, "Por favor complete todos los campos.");
     } else {
-        JOptionPane.showMessageDialog(this, "Cliente registrado (simulado).");
+       if(new conDB().insertar("clientes", datos)){
+                int resp = JOptionPane.showConfirmDialog(null, 
+                        "Se guardo el registro.\nDesea guardar otro?", "Confirmación", 0);
+                if(resp == 0) evento_jbLimpiar();
+                else evento_jbVolver();
+            }
     }
+    
 }
 
 }

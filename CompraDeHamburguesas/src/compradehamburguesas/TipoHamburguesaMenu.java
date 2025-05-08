@@ -114,7 +114,7 @@ public class TipoHamburguesaMenu extends JFrame {
             datos.add((String) cbBebida.getSelectedItem());       // Bebida
             datos.add(txtCantidad.getText().trim());              // Cantidad
 
-            boolean camposVacios = datos.stream().anyMatch(String::isEmpty);
+            boolean camposVacios = datos.stream().anyMatch(d -> d.trim().isEmpty());
 
             if (camposVacios) {
                 JOptionPane.showMessageDialog(this, "Por favor complete todos los campos requeridos.");
@@ -126,7 +126,7 @@ public class TipoHamburguesaMenu extends JFrame {
                 cantidad = Integer.parseInt(datos.get(5));
                 if (cantidad <= 0) throw new NumberFormatException();
             } catch (NumberFormatException ex) {
-                JOptionPane.showMessageDialog(this, "Cantidad debe ser un número positivo.");
+                JOptionPane.showMessageDialog(this, "Cantidad debe ser un número positivo válido.");
                 return;
             }
 
@@ -144,5 +144,9 @@ public class TipoHamburguesaMenu extends JFrame {
         add(btnGuardar);
 
         setVisible(true);
+    }
+
+    public static void main(String[] args) {
+        new TipoHamburguesaMenu(null);
     }
 }

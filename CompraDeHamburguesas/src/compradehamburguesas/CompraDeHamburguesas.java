@@ -13,12 +13,13 @@ import javax.swing.SwingUtilities;
 public class CompraDeHamburguesas extends JFrame {
     JButton btnCliente = new JButton("Cliente");
     JButton btnTipoHamburguesa = new JButton("Tipo de Hamburguesa");
-    JButton btnVentas = new JButton("Ventas");
+    JButton btnVentas = new JButton("Dashboard");
+    JButton btnPedidos = new JButton("Ver Pedidos");
     JButton btnAcerca = new JButton("Acerca");
 
     public CompraDeHamburguesas() {
         super("Menú Principal");
-        setSize(400, 360);
+        setSize(420, 460); // Altura ajustada para que quepan todos los botones
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setResizable(false);
@@ -39,7 +40,7 @@ public class CompraDeHamburguesas extends JFrame {
         btnCliente.setBounds(100, 90, 200, 40);
         btnCliente.addActionListener(e -> {
             setVisible(false);
-            ClienteMenu cli = new ClienteMenu(this); 
+            new ClienteMenu(this);
         });
         add(btnCliente);
 
@@ -53,23 +54,27 @@ public class CompraDeHamburguesas extends JFrame {
         btnVentas.setBounds(100, 210, 200, 40);
         btnVentas.addActionListener(e -> {
             setVisible(false);
-            //new RegistroVenta(this);
-            JOptionPane.showMessageDialog(this, "Lo sentimos...\n, esta opción aún no esta implementada.");
+            new Dashboard(this);  // Dashboard de clientes
         });
         add(btnVentas);
 
-        btnAcerca.setBounds(100, 270, 200, 40);
-btnAcerca.addActionListener(e -> {
-    setVisible(false); // Oculta la ventana principal
-    new AcercaDialog(this); // Abre el diálogo "Acerca"
-});
-add(btnAcerca);
+        btnPedidos.setBounds(100, 270, 200, 40);
+        btnPedidos.addActionListener(e -> {
+            setVisible(false);
+            new PedidosDashboard(this);  // Dashboard de pedidos
+        });
+        add(btnPedidos);
+
+        btnAcerca.setBounds(100, 330, 200, 40);
+        btnAcerca.addActionListener(e -> {
+            setVisible(false);
+            new AcercaDialog(this);
+        });
+        add(btnAcerca);
     }
 
     public static void main(String[] args) {
         FlatXcodeDarkIJTheme.setup();
         SwingUtilities.invokeLater(CompraDeHamburguesas::new);
-        
     }
 }
-

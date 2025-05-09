@@ -11,7 +11,7 @@ public class TipoHamburguesaMenu extends JFrame {
 
     public TipoHamburguesaMenu(JFrame padre) {
         super("Formulario Hamburguesa");
-        setSize(500, 400);
+        setSize(500, 420);
         setLocationRelativeTo(null);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(null);
@@ -72,6 +72,15 @@ public class TipoHamburguesaMenu extends JFrame {
         cbBebida.setBounds(180, 220, 150, 25);
         add(cbBebida);
 
+        
+        JLabel lblCedula = new JLabel("Cédula Cliente:");
+        lblCedula.setBounds(50, 300, 130, 25);
+        add(lblCedula);
+
+        JTextField txtCedula = new JTextField();
+        txtCedula.setBounds(180, 300, 150, 25);
+        add(txtCedula);
+
         JLabel lblCantidad = new JLabel("Cantidad:");
         lblCantidad.setBounds(50, 260, 130, 25);
         add(lblCantidad);
@@ -81,7 +90,7 @@ public class TipoHamburguesaMenu extends JFrame {
         add(txtCantidad);
 
         // Botón Volver
-        btnVolver.setBounds(50, 310, 90, 30);
+        btnVolver.setBounds(50, 340, 90, 30);
         btnVolver.addActionListener(e -> {
             dispose();
             padre.setVisible(true);
@@ -89,7 +98,7 @@ public class TipoHamburguesaMenu extends JFrame {
         add(btnVolver);
 
         // Botón Limpiar
-        btnLimpiar.setBounds(200, 310, 90, 30);
+        btnLimpiar.setBounds(200, 340, 90, 30);
         btnLimpiar.addActionListener(e -> {
             txtCodigo.setText("");
             cbTipo.setSelectedIndex(0);
@@ -97,11 +106,13 @@ public class TipoHamburguesaMenu extends JFrame {
             grupoQueso.clearSelection();
             cbBebida.setSelectedIndex(0);
             txtCantidad.setText("");
+            txtCedula.setText("");
         });
         add(btnLimpiar);
 
+        
         // Botón Guardar
-        btnGuardar.setBounds(350, 310, 90, 30);
+        btnGuardar.setBounds(350, 340, 90, 30);
         btnGuardar.addActionListener(e -> {
             String queso = rbtnConQueso.isSelected() ? "Con Queso"
                         : rbtnSinQueso.isSelected() ? "Sin Queso" : "";
@@ -113,6 +124,7 @@ public class TipoHamburguesaMenu extends JFrame {
             datos.add(queso);                                     // Queso
             datos.add((String) cbBebida.getSelectedItem());       // Bebida
             datos.add(txtCantidad.getText().trim());              // Cantidad
+            datos.add(txtCedula.getText().trim());                // Cédula
 
             boolean camposVacios = datos.stream().anyMatch(d -> d.trim().isEmpty());
 
@@ -130,18 +142,32 @@ public class TipoHamburguesaMenu extends JFrame {
                 return;
             }
 
-            // Mostrar resumen
-            String resumen = "Orden Registrada:\n"
-                    + "Código: " + datos.get(0) + "\n"
-                    + "Tipo: " + datos.get(1) + "\n"
-                    + "Tamaño: " + datos.get(2) + "\n"
-                    + "Queso: " + datos.get(3) + "\n"
-                    + "Bebida: " + datos.get(4) + "\n"
-                    + "Cantidad: " + datos.get(5);
+            conDB db = new conDB();
+            boolean exito = db.insertar("pedidos", datos);
+            if (exito) {
+                JOptionPane.showMessageDialog(this, "Pedido guardado correctamente.");
+            } else {
+                JOptionPane.showMessageDialog(this, "Error al guardar el pedido.");
+            }
 
-            JOptionPane.showMessageDialog(this, resumen);
+            
+            
+            // Mostrar resumen
+    String resumen = "Orden Registrada:\n"
+        + "Código: " + datos.get(0) + "\n"
+        + "Tipo: " + datos.get(1) + "\n"
+        + "Tamaño: " + datos.get(2) + "\n"
+        + "Queso: " + datos.get(3) + "\n"
+        + "Bebida: " + datos.get(4) + "\n"
+        + "Cantidad: " + datos.get(5) + "\n"
+        + "Cédula: " + datos.get(6);
+    JOptionPane.showMessageDialog(this, resumen);
+
+
+
         });
         add(btnGuardar);
+
 
         setVisible(true);
     }

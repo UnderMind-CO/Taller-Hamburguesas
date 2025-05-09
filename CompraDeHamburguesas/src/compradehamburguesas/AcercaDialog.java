@@ -21,7 +21,7 @@ public class AcercaDialog extends JFrame {
         panel1.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         contentPanel.add(panel1);
 
-        JLabel lblAvatar1 = new JLabel(new ImageIcon("ruta/a/imagen/avatar1.png"));
+        JLabel lblAvatar1 = new JLabel(new ImageIcon(new ImageIcon("imagenes.jpg/WhatsApp Image 2025-05-08 at 11.01.19 PM.jpeg").getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
         lblAvatar1.setBounds(10, 20, 60, 60);
         panel1.add(lblAvatar1);
 
@@ -46,7 +46,7 @@ public class AcercaDialog extends JFrame {
         panel2.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         contentPanel.add(panel2);
 
-        JLabel lblAvatar2 = new JLabel(new ImageIcon("ruta/a/imagen/avatar2.png"));
+        JLabel lblAvatar2 = new JLabel(new ImageIcon(new ImageIcon("imagenes.jpg/WhatsApp Image 2025-03-21 at 10.49.23 AM.jpeg").getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
         lblAvatar2.setBounds(10, 10, 60, 60);
         panel2.add(lblAvatar2);
 
@@ -71,7 +71,7 @@ public class AcercaDialog extends JFrame {
         panel3.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         contentPanel.add(panel3);
 
-        JLabel lblAvatar3 = new JLabel(new ImageIcon("ruta/a/imagen/avatar3.png"));
+        JLabel lblAvatar3 = new JLabel(new ImageIcon(new ImageIcon("imagenes.jpg/WhatsApp Image 2025-05-08 at 8.45.01 AM.jpeg").getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
         lblAvatar3.setBounds(10, 10, 60, 60);
         panel3.add(lblAvatar3);
 
@@ -85,7 +85,7 @@ public class AcercaDialog extends JFrame {
         lblCodigo3.setFont(new Font("SansSerif", Font.PLAIN, 14));
         panel3.add(lblCodigo3);
 
-        JLabel lblCorreo3 = new JLabel("Correo: santiago.echeverri@uceva.edu.co");
+        JLabel lblCorreo3 = new JLabel("Correo: santiago.echeverri01@uceva.edu.co");
         lblCorreo3.setBounds(80, 60, 340, 20);
         lblCorreo3.setFont(new Font("SansSerif", Font.PLAIN, 14));
         panel3.add(lblCorreo3);
@@ -96,7 +96,7 @@ public class AcercaDialog extends JFrame {
         panel4.setBorder(BorderFactory.createLineBorder(Color.BLACK));
         contentPanel.add(panel4);
 
-        JLabel lblAvatar4 = new JLabel(new ImageIcon("ruta/a/imagen/avatar4.png"));
+        JLabel lblAvatar4 = new JLabel(new ImageIcon(new ImageIcon("imagenes.jpg/WhatsApp Image 2025-05-06 at 9.14.00 PM.jpeg").getImage().getScaledInstance(60, 60, Image.SCALE_SMOOTH)));
         lblAvatar4.setBounds(10, 10, 60, 60);
         panel4.add(lblAvatar4);
 
